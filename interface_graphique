@@ -1,0 +1,15 @@
+from tkinter import *
+window = Tk()
+window.title("Welcome to myapplication")
+window.geometry('350x200')
+def clicked():
+
+  print("Button was clicked !!")
+Button(window, text="S'inscrire ",  bg="orange", fg="red",font=("Arial Bold", 20),command=clicked).pack(side=TOP, pady=5)
+Button(window, text="Se connecter", bg="orange", fg="red", font=("Arial Bold", 20)).pack(side=BOTTOM, pady=5)
+def test():
+    print
+def formulaire():
+		
+		
+		return f
