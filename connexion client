@@ -1,22 +1,33 @@
+from tkinter import *
+
+fenetre = Tk()
+fenetre.title('essai')
+fenetre.geometry('350x300')
+
 import socket
+import select
+import logging
+import threading
+import time
  
 hote = "localhost"
-port = 8081
+port = 8085
  
 connexion_avec_serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 connexion_avec_serveur.connect((hote, port))
 print("Connexion établie avec le serveur sur le port {}".format(port))
  
-msg_a_envoyer = b""
-while msg_a_envoyer != b"fin":
-    msg_a_envoyer = input("> ")
- 
-    msg_a_envoyer = msg_a_envoyer.encode("Utf8")
- 
-    connexion_avec_serveur.send(msg_a_envoyer)
-    msg_recu = connexion_avec_serveur.recv(1024)
-    print(msg_recu.decode("Utf8")) 
  
  
 print("Fermeture de la connexion")
 connexion_avec_serveur.close()
+
+def thread_function(name):
+
+    while True :
+        time.sleep(3)
+        print("tick")
+if name == "main":
+
+    x = threading.Thread(target=thread_function, args=(1,))
+    x.start()
