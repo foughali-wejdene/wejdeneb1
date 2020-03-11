@@ -1,0 +1,56 @@
+from tkinter import *
+def hello():
+    print('hello')
+
+
+fenetre = Tk()
+fenetre.title('inscription')
+fenetre.geometry('350x300')
+
+label1 = Label(fenetre, text='entrez votre nom' , bg='yellow' , relief=GROOVE)
+label1.pack()
+
+variable = StringVar()
+
+entry1 = Entry(fenetre, textvariable=variable, width=50)
+entry1.pack()
+
+
+
+label2 = Label(fenetre, text='entrez votre prenom' , bg='yellow' , relief=GROOVE)
+label2.pack()
+
+variable = StringVar()
+
+entry2 = Entry(fenetre, textvariable=variable, width=50)
+entry2.pack()
+label3 = Label(fenetre, text='entrez votre numero de telephone' , bg='yellow' , relief=GROOVE)
+label3.pack()
+variable = StringVar()
+
+entry3 = Entry(fenetre, textvariable=variable, width=50)
+entry3.pack()
+label4 = Label(fenetre, text='entrez votre email' , bg='yellow' , relief=GROOVE)
+label4.pack()
+variable = StringVar()
+
+entry4 = Entry(fenetre, textvariable=variable, width=50)
+entry4.pack()
+
+label5 = Label(fenetre, text='entrez votre date de naissance' , bg='yellow' , relief=GROOVE)
+label5.pack()
+variable = StringVar()
+
+entry5 = Entry(fenetre, textvariable=variable, width=50)
+entry5.pack()
+
+label6 = Label(fenetre, text='entrez votre mdp' , bg='yellow' , relief=GROOVE)
+label6.pack()
+variable = StringVar()
+
+entry6 = Entry(fenetre, textvariable=variable, width=50)
+entry6.pack()
+bouton = Button(fenetre, text= 'Valider' , bg='blue', relief=GROOVE , command=hello)
+bouton.pack()
+
+
