@@ -1,57 +1,31 @@
-from tkinter import *
-
-#fenetre = Tk()
-#fenetre.title('essai')
-#fenetre.geometry('350x300')
-
-import socket
-import select
-import threading
-import time
-
-
-hote = ''
-port = 8085
  
-connexion_principale = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-connexion_principale.bind((hote, port))
-connexion_principale.listen(5)
-print("Le serveur écoute à présent sur le port {}".format(port))
- 
+import socket, threading
 
-def thread_function(name):
+def server_program():
+    # get the hostname
+    host = socket.gethostname()
+    port = 5002  # initiate port no above 1024
 
-    clients_connectes = []
+    server_socket = socket.socket()  # get instance
+    # look closely. The bind() function takes tuple as argument
+    server_socket.bind((host, port))  # bind host address and port together
 
+    # configure how many client the server can listen simultaneously
+    server_socket.listen(2)
+    conn, address = server_socket.accept()  # accept new connection
+    print("Connection from: " + str(address))
     while True:
+        # receive data stream. it won't accept data packet greater than 1024 bytes
+        data = conn.recv(1024).decode()
+        if not data:
+            # if data is not received break
+            break
+        print("from connected user: " + str(data))
+        data = input(' -> ')
+        conn.send(data.encode())  # send data to the client
 
-        connexions_demandees, wlist, xlist = select.select([connexion_principale], [], [], 0.05)
-
-        for connexion in connexions_demandees:
-            connexion_avec_client, infos_connexion = connexion.accept()
-            # On ajoute le socket connecté a  la liste des clients
-            clients_connectes.append(connexion_avec_client)
-
-        clients_a_lire = []
-        clients_a_informer = []
-
-        try:
-            clients_a_lire, clients_a_informer, xlist = select.select(clients_connectes,clients_connectes, [], 0.01)
-        except select.error:
-            pass
-        else:
-            # On parcourt la liste des clients a  lire
-            for client in clients_a_lire:
-                client.send("Bien recu")
-                # Client est de type socket
-                msg_recu = client.recv(1024)
-                # Peut planter si le message contient des caracteres speciaux
-                msg_recu = msg_recu.decode()
-                print("Recu{}".format(msg_recu))
+    conn.close()  # close the connection
 
 
-
-if __name__ == "__main__":
-
-    x = threading.Thread(target=thread_function, args=(1,))
-    x.start()
+if __name__ == '__main__':
+    server_program()
